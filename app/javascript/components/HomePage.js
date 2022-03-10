@@ -4,7 +4,9 @@ class HomePage extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <h1>Hello</h1>
+        <h1>Welcome to the meeting randomizer</h1>
+        <p>Click the following button to start a new session:</p>
+        <button>New Session</button>
       </React.Fragment>
     );
   }
