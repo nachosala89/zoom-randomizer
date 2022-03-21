@@ -8,15 +8,15 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/1 or /meetings/1.json
   def show
+    @users = @meeting.users.all
+    render json: @users.to_json(
+      include: :meeting
+    )
   end
 
   # GET /meetings/new
   def new
     @meeting = Meeting.new
-  end
-
-  # GET /meetings/1/edit
-  def edit
   end
 
   # POST /meetings or /meetings.json
@@ -60,7 +60,8 @@ class MeetingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_meeting
-      @meeting = Meeting.find(params[:id])
+      id = Hashids.new("salt").decode(params[:id]).try(:first)
+      @meeting = Meeting.find(id)
     end
 
     # Only allow a list of trusted parameters through.

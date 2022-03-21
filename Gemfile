@@ -73,3 +73,4 @@ end
 
 gem 'react-rails'
 gem 'webpacker'
+gem 'hashids'
