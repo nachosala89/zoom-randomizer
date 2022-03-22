@@ -1,10 +1,16 @@
 import React from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-const HomePage = () => {  
+const HomePage = () => {
+  const navigate = useNavigate();
   const handleClick = async () => {
-    const response = await axios.post('http://127.0.0.1:3000/v1/meetings');
-    console.log(response);
+    await axios.post('http://127.0.0.1:3000/v1/meetings')
+      .then((response) => {
+        if (response.status == 200) {
+          navigate(`/meeting/${response.data.path}`);
+        }
+      });
   };
   
   return (
