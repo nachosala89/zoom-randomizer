@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  resources :users
-  resources :meetings
   root "static#index"
-  namespace :v1, defaults: { format: 'json' } do
-    resources :meeting
+  namespace :v1 do
+    resources :meetings
   end
 end

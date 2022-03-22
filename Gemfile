@@ -74,3 +74,4 @@ end
 gem 'react-rails'
 gem 'webpacker'
 gem 'hashids'
+gem 'rack-cors'
