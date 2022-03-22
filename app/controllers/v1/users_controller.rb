@@ -3,7 +3,10 @@ class V1::UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    id = Hashids.new("salt").decode(params[:meeting_id]).try(:first)
+    @meeting = Meeting.find(id)
+    @users = @meeting.users.all
+    render json: @users
   end
 
   # GET /users/1 or /users/1.json

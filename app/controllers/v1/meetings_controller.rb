@@ -10,10 +10,6 @@ class V1::MeetingsController < ApplicationController
 
   # GET /meetings/1 or /meetings/1.json
   def show
-    # @users = @meeting.users.all
-    # render json: @users.to_json(
-    #   include: :meeting
-    # )
     render json: @meeting
   end
 
@@ -27,7 +23,8 @@ class V1::MeetingsController < ApplicationController
     @meeting = Meeting.new
     if @meeting.save
       render json: {
-        success: 'Meeting created succesfully'
+        success: 'Meeting created succesfully',
+        path: @meeting.encode_id
       }
     else
       render json: @meeting.errors, status: :unprocessable_entity
