@@ -38,6 +38,20 @@ class V1::UsersController < ApplicationController
     end
   end
 
+  def update
+    meeting = Hashids.new("salt").decode(params[:meeting_id]).try(:first)
+    @user = User.find(params[:id])
+    @user.selected = user_params[:selected]
+
+    if @user.save
+      render json: {
+        success: 'user updated succesfully'
+      }
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -46,6 +60,6 @@ class V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :meeting_id)
+      params.require(:user).permit(:name, :meeting_id, :selected)
     end
 end
