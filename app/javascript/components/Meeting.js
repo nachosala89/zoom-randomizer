@@ -7,12 +7,19 @@ import axios from 'axios';
 const Meeting = () => {
   const [users, setUsers] = useState([]);
   const { id } = useParams();
-  let selected = [];
 
   const [username, setUsername] = useState('');
 
   const onChange = (e) => {
     setUsername(e.target.value);
+  };
+
+  const unselected = (arr) => {
+    return arr.filter((user) => user.selected === 0);
+  };
+
+  const selected = (arr) => {
+    return arr.filter((user) => user.selected !== 0).sort((a, b) => b.selected - a.selected);
   };
 
   const fetchUsers = () => {
@@ -37,6 +44,20 @@ const Meeting = () => {
       });
   };
 
+  const randomize = async () => {
+    const arr = unselected(users);
+    let user = arr[Math.floor(Math.random()*arr.length)];
+    const selectArr = selected(users);
+    let last = (selectArr.length === 0) ? 0 : Math.max(...selectArr.map(user => user.selected));
+    user.selected += 1;
+    await axios.put(`http://127.0.0.1:3000/v1/meetings/${id}/users/${user.id}`, user)
+      .then((response) => {
+        if (response.status == 200) {
+          fetchUsers();
+        }
+      });
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -45,10 +66,10 @@ const Meeting = () => {
     <>
       <div>
         <h1>This is the meeting you've just created</h1>
-        {(users.filter((user) => !user.selected).length === 0)
+        {(unselected(users).length === 0)
           ? <p>No participants yet.</p>
           : <ul>
-            {users.filter((user) => !user.selected).map((user) => (
+            {unselected(users).map((user) => (
               <li key={user.id}>
                 <span>{user.name}</span>
               </li>
@@ -64,6 +85,9 @@ const Meeting = () => {
               Add
             </Button>
           </Form>
+      </div>
+      <div>
+        <Button onClick={randomize}>Pick Random</Button>
       </div>
     </>
   );
