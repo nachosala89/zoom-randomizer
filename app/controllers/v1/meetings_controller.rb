@@ -1,5 +1,5 @@
 class V1::MeetingsController < ApplicationController
-  before_action :set_meeting, only: %i[ show edit update destroy ]
+  before_action :set_meeting, only: %i[ show edit update destroy reset ]
   skip_before_action :verify_authenticity_token
 
   # GET /meetings or /meetings.json
@@ -25,6 +25,22 @@ class V1::MeetingsController < ApplicationController
       render json: {
         success: 'Meeting created succesfully',
         path: @meeting.encode_id
+      }
+    else
+      render json: @meeting.errors, status: :unprocessable_entity
+    end
+  end
+
+  def reset
+    saved = true
+    @users = @meeting.users.all
+    @users.each do |user|
+      user.selected = 0
+      saved = false unless user.save
+    end
+    if saved
+      render json: {
+        success: 'users updated succesfully'
       }
     else
       render json: @meeting.errors, status: :unprocessable_entity
