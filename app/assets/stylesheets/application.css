@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+.current-user {
+  font-size: 50px;
+  font-weight: bold;
+}
