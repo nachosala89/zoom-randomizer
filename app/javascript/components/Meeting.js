@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
@@ -111,6 +111,10 @@ const Meeting = () => {
           </ul>
         }
         <Button onClick={reset}>Reset</Button>
+        <p>Go back to create a new meeting</p>
+        <Link to="/">
+          <Button>Home</Button>
+        </Link>
       </div>
     </>
   );
