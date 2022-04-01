@@ -74,6 +74,10 @@ const Meeting = () => {
     }, 5000);
   }, []);
 
+  const copyURL = () => {
+    navigator.clipboard.writeText(window.location.href);
+  }
+
   return (
     <>
       <div>
@@ -115,6 +119,9 @@ const Meeting = () => {
         <Link to="/">
           <Button>Home</Button>
         </Link>
+        <p>Copy this link to share the meeting so the participants can add their names:</p>
+        <p>{window.location.href}</p>
+        <Button onClick={copyURL}>Copy URL</Button>
       </div>
     </>
   );
