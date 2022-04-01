@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
@@ -49,7 +49,7 @@ const Meeting = () => {
     let user = arr[Math.floor(Math.random()*arr.length)];
     const selectArr = selected(users);
     let last = (selectArr.length === 0) ? 0 : Math.max(...selectArr.map(user => user.selected));
-    user.selected += 1;
+    user.selected = last + 1;
     await axios.put(`http://127.0.0.1:3000/v1/meetings/${id}/users/${user.id}`, user)
       .then((response) => {
         if (response.status == 200) {
@@ -58,9 +58,25 @@ const Meeting = () => {
       });
   };
 
-  useEffect(() => {
+  const reset = async () => {
+    await axios.put(`http://127.0.0.1:3000/v1/meetings/${id}/reset`)
+    .then((response) => {
+      if (response.status == 200) {
+        fetchUsers();
+      }
+    });
+  }
+
+  useEffect( () => {
     fetchUsers();
+    setInterval(() => {
+      fetchUsers();
+    }, 5000);
   }, []);
+
+  const copyURL = () => {
+    navigator.clipboard.writeText(window.location.href);
+  }
 
   return (
     <>
@@ -88,6 +104,24 @@ const Meeting = () => {
       </div>
       <div>
         <Button onClick={randomize}>Pick Random</Button>
+        {(selected(users).length === 0)
+          ? <p>No participants yet.</p>
+          : <ul>
+            {selected(users).map((user, index) => (
+              <li key={user.id} className={(index === 0) ? 'current-user' : ''}>
+                <span>{user.name}</span>
+              </li>
+            ))}
+          </ul>
+        }
+        <Button onClick={reset}>Reset</Button>
+        <p>Go back to create a new meeting</p>
+        <Link to="/">
+          <Button>Home</Button>
+        </Link>
+        <p>Copy this link to share the meeting so the participants can add their names:</p>
+        <p>{window.location.href}</p>
+        <Button onClick={copyURL}>Copy URL</Button>
       </div>
     </>
   );

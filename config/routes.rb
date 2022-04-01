@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     resources :meetings do
       resources :users
     end
+    put '/meetings/:id/reset', to: 'meetings#reset'
   end
 end
