@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -14,11 +15,11 @@ const HomePage = () => {
   };
   
   return (
-    <>
-      <h1>Welcome to the meeting randomizer</h1>
-      <p>Click the following button to start a new session:</p>
-      <button onClick={handleClick}>New Session</button>
-    </>
+    <div className="container">
+      <h1>Meetinger</h1>
+      <p>Welcome to the meeting randomizer. Click the following button to start a new session:</p>
+      <Button onClick={handleClick}>New Session</Button>
+    </div>
   );
 }
 
