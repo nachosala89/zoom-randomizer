@@ -79,20 +79,18 @@ const Meeting = () => {
   }
 
   return (
-    <div className="container">
-      <div>
-        <h1>This is the meeting you've just created</h1>
-        {(unselected(users).length === 0)
-          ? <p>No participants yet.</p>
-          : <ul>
-            {unselected(users).map((user) => (
-              <li key={user.id}>
-                <span>{user.name}</span>
-              </li>
-            ))}
-          </ul>
-        }
-        <Form onSubmit={handleSubmit}>
+    <div className="container mt-5">
+      <ul>
+        <li className="text-center">Share this link with your partners.</li>
+        <li className="text-center link-box">
+          <span>{window.location.href}</span>
+          <button onClick={copyURL}>COPY LINK</button>
+        </li>
+        <li className="text-center">Ask them to add their names. Or you can do it yourself.</li>
+      </ul>
+      <div className="row align-items-center">
+        <div className="col-md-4 offset-md-2">
+          <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
               <Form.Label>Participant name</Form.Label>
               <Form.Control name="username" type="text" value={username} onChange={onChange} />
@@ -101,27 +99,35 @@ const Meeting = () => {
               Add
             </Button>
           </Form>
-      </div>
-      <div>
-        <Button onClick={randomize}>Pick Random</Button>
-        {(selected(users).length === 0)
-          ? <p>No participants yet.</p>
-          : <ul>
-            {selected(users).map((user, index) => (
-              <li key={user.id} className={(index === 0) ? 'current-user' : ''}>
-                <span>{user.name}</span>
-              </li>
-            ))}
-          </ul>
-        }
-        <Button onClick={reset}>Reset</Button>
-        <p>Go back to create a new meeting</p>
-        <Link to="/">
-          <Button>Home</Button>
-        </Link>
-        <p>Copy this link to share the meeting so the participants can add their names:</p>
-        <p>{window.location.href}</p>
-        <Button onClick={copyURL}>Copy URL</Button>
+          {(unselected(users).length === 0)
+            ? <p>No participants yet.</p>
+            : <ul>
+              {unselected(users).map((user) => (
+                <li key={user.id}>
+                  <span>{user.name}</span>
+                </li>
+              ))}
+            </ul>
+          }
+        </div>
+        <div className="col-md-6">
+          <Button onClick={randomize}>Pick Random</Button>
+          {(selected(users).length === 0)
+            ? <p>No participants yet.</p>
+            : <ul>
+              {selected(users).map((user, index) => (
+                <li key={user.id} className={(index === 0) ? 'current-user' : ''}>
+                  <span>{user.name}</span>
+                </li>
+              ))}
+            </ul>
+          }
+          <Button onClick={reset}>Reset</Button>
+          <p>Go back to create a new meeting</p>
+          <Link to="/">
+            <Button>Home</Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

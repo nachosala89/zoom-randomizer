@@ -41,7 +41,7 @@ a {
   font-weight: bold;
 }
 
-.start-button {
+.big-button {
   font-size: 30px;
   font-weight: bold;
   color: #CCC5B9;
@@ -65,4 +65,10 @@ ul {
 
 .arrow {
   height: 1.5em;
+}
+
+.link-box {
+  font-size: 1em;
+  background-color: whitesmoke !important;
+  border: 2px solid #454B66 !important;
 }

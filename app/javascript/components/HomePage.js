@@ -15,10 +15,10 @@ const HomePage = () => {
   };
   
   return (
-    <div className="container">
-      <div className="row mt-5 align-items-center">
+    <div className="container mt-5">
+      <div className="row align-items-center">
         <div className="col-md-3 offset-md-3 d-flex justify-content-center">
-          <button onClick={handleClick} className="start-button p-4">START<br />SESSION</button>
+          <button onClick={handleClick} className="big-button p-4">START<br />SESSION</button>
         </div>
         <div className="col-md-6 mt-5 mt-md-0">
           <ul>
