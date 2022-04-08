@@ -79,7 +79,7 @@ const Meeting = () => {
   }
 
   return (
-    <>
+    <div className="container">
       <div>
         <h1>This is the meeting you've just created</h1>
         {(unselected(users).length === 0)
@@ -123,7 +123,7 @@ const Meeting = () => {
         <p>{window.location.href}</p>
         <Button onClick={copyURL}>Copy URL</Button>
       </div>
-    </>
+    </div>
   );
 }
 

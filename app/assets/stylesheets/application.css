@@ -13,8 +13,56 @@
  *= require_tree .
  *= require_self
  */
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Lobster&family=Roboto+Slab:wght@500&display=swap');
+
+body {
+  background-color: #CCC5B9;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.header-title {
+  font-family: 'Lobster', cursive;
+  font-size: 8em;
+  color: #fff;
+  text-shadow: 0 0 10px #500;
+}
+
+.header-sub-title {
+  font-family: 'Bree Serif', serif;
+  font-size: 2em;
+  color: #454B66;
+}
 
 .current-user {
   font-size: 50px;
   font-weight: bold;
+}
+
+.start-button {
+  font-size: 30px;
+  font-weight: bold;
+  color: #CCC5B9;
+  background-color: #EB5E28;
+  border-radius: 10px;
+  border: 2px solid #454B66;
+  font-family: 'Bree Serif', serif;
+}
+
+.start-button:hover {
+  background-color: #454B66;
+  color: #EB5E28;
+}
+
+ul {
+  list-style-type: none;
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.5em;
+  margin-bottom: 0 !important;
+}
+
+.arrow {
+  height: 1.5em;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
+import arrow from "/app/assets/images/arrow.svg";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -9,16 +9,38 @@ const HomePage = () => {
     await axios.post('http://127.0.0.1:3000/v1/meetings')
       .then((response) => {
         if (response.status == 200) {
-          navigate(`/meeting/${response.data.path}`);
+          navigate(`/${response.data.path}`);
         }
       });
   };
   
   return (
     <div className="container">
-      <h1>Meetinger</h1>
-      <p>Welcome to the meeting randomizer. Click the following button to start a new session:</p>
-      <Button onClick={handleClick}>New Session</Button>
+      <div className="row mt-5 align-items-center">
+        <div className="col-md-3 offset-md-3 d-flex justify-content-center">
+          <button onClick={handleClick} className="start-button p-4">START<br />SESSION</button>
+        </div>
+        <div className="col-md-6 mt-5 mt-md-0">
+          <ul>
+            <li className="d-flex align-items-center mt-1">
+              <img src={arrow} className="arrow me-1" />
+              <span>Start a new session.</span>
+            </li>
+            <li className="d-flex align-items-center mt-1">
+              <img src={arrow} className="arrow me-1" />
+              <span>Share the link to your partners.</span>
+            </li>
+            <li className="d-flex align-items-center mt-1">
+              <img src={arrow} className="arrow me-1" />
+              <span>Add your names.</span>
+            </li>
+            <li className="d-flex align-items-center mt-1">
+              <img src={arrow} className="arrow me-1" />
+              <span>Pick one!</span>
+            </li>
+          </ul>
+        </div>     
+      </div>
     </div>
   );
 }
