@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from './HomePage';
 import Meeting from './Meeting';
 import Header from './Header';
+import Footer from "./Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
@@ -14,9 +15,10 @@ class App extends React.Component {
           <Route path="/:id" element={<Meeting />} />
           <Route path="/" exact element={<HomePage />} />
         </Routes>
+        <Footer />
       </Router>
     );
   }
 }
 
-export default App
+export default App;
