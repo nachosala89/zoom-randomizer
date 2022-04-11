@@ -51,7 +51,7 @@ a {
   font-family: 'Bree Serif', serif;
 }
 
-.start-button:hover {
+.big-button:hover {
   background-color: #454B66;
   color: #EB5E28;
 }
@@ -71,4 +71,19 @@ ul {
   font-size: 1em;
   background-color: whitesmoke !important;
   border: 2px solid #454B66 !important;
+}
+
+.footer {
+  background-color: #454B66;
+  color: #500;
+  font-family: 'Roboto Slab', serif;
+}
+
+.brand-icon {
+  color: #CCC5B9;
+  height: 20px;
+}
+
+.brand-icon:hover {
+  color: #EB5E28;
 }
