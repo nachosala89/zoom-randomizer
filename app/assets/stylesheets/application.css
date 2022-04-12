@@ -37,8 +37,10 @@ a {
 }
 
 .current-user {
+  font-family: 'Roboto Slab', serif;
   font-size: 50px;
   font-weight: bold;
+  color: #500;
 }
 
 .big-button {
@@ -67,12 +69,6 @@ ul {
   height: 1.5em;
 }
 
-.link-box {
-  font-size: 1em;
-  background-color: whitesmoke !important;
-  border: 2px solid #454B66 !important;
-}
-
 .footer {
   background-color: #454B66;
   color: #500;
@@ -86,4 +82,28 @@ ul {
 
 .brand-icon:hover {
   color: #EB5E28;
+}
+
+.link-box {
+  font-size: 0.6em;
+  background-color: whitesmoke !important;
+  border: 1px solid #454B66 !important;
+}
+
+.small-btn {
+  font-family: 'Roboto Slab', serif;
+  background-color: #454B66;
+  color: #CCC5B9;
+  border: 2px solid #454B66;
+  border-radius: 6px;
+}
+
+.small-btn:hover {
+  background-color: #EB5E28;
+  color: #454B66;
+}
+
+.participants {
+  font-size: 1.2em;
+  font-family: 'Roboto Slab', serif;
 }
