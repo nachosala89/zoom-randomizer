@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const Meeting = () => {
@@ -67,6 +68,15 @@ const Meeting = () => {
     });
   }
 
+  const removeUser = async (userId) => {
+    await axios.delete(`http://127.0.0.1:3000/v1/meetings/${id}/users/${userId}`)
+      .then((response) => {
+        if (response.status == 200) {
+          fetchUsers();
+        }
+      });
+  }
+
   useEffect( () => {
     fetchUsers();
     setInterval(() => {
@@ -79,7 +89,7 @@ const Meeting = () => {
   }
 
   return (
-    <div className="container mt-3">
+    <div className="container mt-3 mb-5">
       <ul>
         <li className="text-center">Share this link with your partners.</li>
         <li className="d-flex justify-content-center">
@@ -95,8 +105,7 @@ const Meeting = () => {
           <Form onSubmit={handleSubmit}>
             <div className="d-flex">
               <Form.Group controlId="username">
-                <Form.Label>Participant name</Form.Label>
-                <Form.Control name="username" type="text" value={username} onChange={onChange} />
+                <Form.Control name="username" type="text" value={username} onChange={onChange} placeholder="Name" />
               </Form.Group>
               <button className="small-btn align-self-end" type="submit">
                 ADD
@@ -105,13 +114,20 @@ const Meeting = () => {
           </Form>
           {(unselected(users).length === 0)
             ? <p>No participants to choose.</p>
-            : <ul>
-              {unselected(users).map((user) => (
-                <li key={user.id}>
-                  <span>{user.name}</span>
-                </li>
-              ))}
-            </ul>
+            : <table className="table">
+                <tbody>
+                {unselected(users).map((user) => (
+                  <tr key={user.id}>
+                    <td>
+                      <span>{user.name}</span>
+                    </td>
+                    <td>
+                      <FontAwesomeIcon icon={faX} onClick={() => removeUser(user.id)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           }
         </div>
         <div className="col-md-4 d-flex flex-column align-items-center">
@@ -123,14 +139,20 @@ const Meeting = () => {
               </div>}
         </div>
         <div className="col-md-4 participants">
-          <button className="small-btn" onClick={reset}>RESET</button>
-          <ul>
-            {selected(users).slice(1).map((user) => (
-              <li key={user.id}>
-                <span>{user.name}</span>
-              </li>
-            ))}
-          </ul>
+          {selected(users).length === 0 ? '' 
+          : <button className="small-btn" onClick={reset}>RESET</button>}
+            {selected(users).slice(1).length === 0 ? ''
+              : <div>
+                <span>Previous selected </span>
+                <ul className="previous-selected">
+                  {selected(users).slice(1).map((user) => (
+                    <li key={user.id}>
+                      <span>{user.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            }
         </div>
       </div>
     </div>

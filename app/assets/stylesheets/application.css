@@ -107,3 +107,12 @@ ul {
   font-size: 1.2em;
   font-family: 'Roboto Slab', serif;
 }
+
+.fa-x {
+  cursor: pointer;
+  color:#500;
+}
+
+.previous-selected {
+  font-size: 0.8em;
+}

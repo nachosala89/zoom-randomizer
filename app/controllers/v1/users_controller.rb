@@ -10,17 +10,9 @@ class V1::UsersController < ApplicationController
     render json: @users
   end
 
-  # GET /users/1 or /users/1.json
-  def show
-  end
-
   # GET /users/new
   def new
     @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
   end
 
   # POST /users or /users.json
@@ -36,6 +28,14 @@ class V1::UsersController < ApplicationController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+  end
+
+  # DELETE /users/1 or /users/1.json
+  def destroy
+    @user.destroy
+    render json: {
+      success: 'user deleted succesfully'
+    }
   end
 
   def update
