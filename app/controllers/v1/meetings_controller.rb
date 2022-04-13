@@ -60,7 +60,7 @@ class V1::MeetingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_meeting
-      id = Hashids.new("salt").decode(params[:id]).try(:first)
+      id = Hashids.new("greater salt", 8).decode(params[:id]).try(:first)
       @meeting = Meeting.find(id)
     end
 end

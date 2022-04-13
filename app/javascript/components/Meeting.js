@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const Meeting = () => {
@@ -67,6 +68,15 @@ const Meeting = () => {
     });
   }
 
+  const removeUser = async (userId) => {
+    await axios.delete(`http://127.0.0.1:3000/v1/meetings/${id}/users/${userId}`)
+      .then((response) => {
+        if (response.status == 200) {
+          fetchUsers();
+        }
+      });
+  }
+
   useEffect( () => {
     fetchUsers();
     setInterval(() => {
@@ -79,54 +89,70 @@ const Meeting = () => {
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-3 mb-5">
       <ul>
         <li className="text-center">Share this link with your partners.</li>
-        <li className="text-center link-box">
-          <span>{window.location.href}</span>
-          <button onClick={copyURL}>COPY LINK</button>
+        <li className="d-flex justify-content-center">
+          <div className="p-1 link-box">
+            <span>{window.location.href}</span>
+            <button className="small-btn ms-2" onClick={copyURL}>COPY</button>
+          </div>
         </li>
         <li className="text-center">Ask them to add their names. Or you can do it yourself.</li>
       </ul>
-      <div className="row align-items-center">
-        <div className="col-md-4 offset-md-2">
+      <div className="row mt-4">
+        <div className="col-md-3 offset-md-1 participants">
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="username">
-              <Form.Label>Participant name</Form.Label>
-              <Form.Control name="username" type="text" value={username} onChange={onChange} />
-            </Form.Group>
-            <Button type="submit">
-              Add
-            </Button>
+            <div className="d-flex">
+              <Form.Group controlId="username">
+                <Form.Control name="username" type="text" value={username} onChange={onChange} placeholder="Name" />
+              </Form.Group>
+              <button className="small-btn align-self-end" type="submit">
+                ADD
+              </button>
+            </div>
           </Form>
           {(unselected(users).length === 0)
-            ? <p>No participants yet.</p>
-            : <ul>
-              {unselected(users).map((user) => (
-                <li key={user.id}>
-                  <span>{user.name}</span>
-                </li>
-              ))}
-            </ul>
+            ? <p>No participants to choose.</p>
+            : <table className="table">
+                <tbody>
+                {unselected(users).map((user) => (
+                  <tr key={user.id}>
+                    <td>
+                      <span>{user.name}</span>
+                    </td>
+                    <td>
+                      <FontAwesomeIcon icon={faX} onClick={() => removeUser(user.id)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           }
         </div>
-        <div className="col-md-6">
-          <Button onClick={randomize}>Pick Random</Button>
-          {(selected(users).length === 0)
-            ? <p>No participants yet.</p>
-            : <ul>
-              {selected(users).map((user, index) => (
-                <li key={user.id} className={(index === 0) ? 'current-user' : ''}>
-                  <span>{user.name}</span>
-                </li>
-              ))}
-            </ul>
-          }
-          <Button onClick={reset}>Reset</Button>
-          <p>Go back to create a new meeting</p>
-          <Link to="/">
-            <Button>Home</Button>
-          </Link>
+        <div className="col-md-4 d-flex flex-column align-items-center">
+          <button className="big-button p-4" onClick={randomize}>PICK<br/>RANDOM</button>
+          {(selected(users).length === 0) ? '' 
+            : <div>
+                <div className="participants mt-2">Selected:</div>
+                <p className="current-user text-center">{selected(users)[0].name}</p>
+              </div>}
+        </div>
+        <div className="col-md-4 participants">
+          {selected(users).length === 0 ? '' 
+          : <button className="small-btn" onClick={reset}>RESET</button>}
+            {selected(users).slice(1).length === 0 ? ''
+              : <div>
+                <span>Previous selected </span>
+                <ul className="previous-selected">
+                  {selected(users).slice(1).map((user) => (
+                    <li key={user.id}>
+                      <span>{user.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            }
         </div>
       </div>
     </div>

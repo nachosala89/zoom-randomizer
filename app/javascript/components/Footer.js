@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => (
-  <div className="container-fluid position-absolute bottom-0 footer">
+  <div className="container-fluid position-fixed bottom-0 footer">
     <div className="d-flex justify-content-center align-items-center">
       <span>Made by Nacho Sala</span>
       <a href="https://www.linkedin.com/in/nacho-sala/">
