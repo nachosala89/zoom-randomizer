@@ -24,7 +24,7 @@ const Meeting = () => {
   };
 
   const fetchUsers = () => {
-    axios.get(`http://127.0.0.1:3000/v1/meetings/${id}/users`)
+    axios.get(`https://pickone-randomizer.herokuapp.com/v1/meetings/${id}/users`)
       .then((response) => {
         setUsers(response.data);
       });
@@ -36,7 +36,7 @@ const Meeting = () => {
       name: username,
       meeting_id: id,
     };
-    await axios.post(`http://127.0.0.1:3000/v1/meetings/${id}/users`, data)
+    await axios.post(`https://pickone-randomizer.herokuapp.com/v1/meetings/${id}/users`, data)
       .then((response) => {
         if (response.status == 200) {
           setUsername('');
@@ -51,7 +51,7 @@ const Meeting = () => {
     const selectArr = selected(users);
     let last = (selectArr.length === 0) ? 0 : Math.max(...selectArr.map(user => user.selected));
     user.selected = last + 1;
-    await axios.put(`http://127.0.0.1:3000/v1/meetings/${id}/users/${user.id}`, user)
+    await axios.put(`https://pickone-randomizer.herokuapp.com/v1/meetings/${id}/users/${user.id}`, user)
       .then((response) => {
         if (response.status == 200) {
           fetchUsers();
@@ -60,7 +60,7 @@ const Meeting = () => {
   };
 
   const reset = async () => {
-    await axios.put(`http://127.0.0.1:3000/v1/meetings/${id}/reset`)
+    await axios.put(`https://pickone-randomizer.herokuapp.com/v1/meetings/${id}/reset`)
     .then((response) => {
       if (response.status == 200) {
         fetchUsers();
@@ -69,7 +69,7 @@ const Meeting = () => {
   }
 
   const removeUser = async (userId) => {
-    await axios.delete(`http://127.0.0.1:3000/v1/meetings/${id}/users/${userId}`)
+    await axios.delete(`https://pickone-randomizer.herokuapp.com/v1/meetings/${id}/users/${userId}`)
       .then((response) => {
         if (response.status == 200) {
           fetchUsers();

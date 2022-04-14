@@ -6,7 +6,7 @@ import arrow from "/app/assets/images/arrow.svg";
 const HomePage = () => {
   const navigate = useNavigate();
   const handleClick = async () => {
-    await axios.post('http://127.0.0.1:3000/v1/meetings')
+    await axios.post('https://pickone-randomizer.herokuapp.com/v1/meetings')
       .then((response) => {
         if (response.status == 200) {
           navigate(`/${response.data.path}`);
