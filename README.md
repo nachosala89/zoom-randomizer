@@ -1,4 +1,4 @@
-# Zoom Randomizer
+# PickOne! Randomizer
 
 > This app is designed so that a participant can be chosen randomly in a meeting. The main difference with other sites of this type, is that a user creates a session for that meeting and then can share the link with others, and everyone can add their name. That way names don't have to be added by a single user, which is especially useful for large meetings. 
 
