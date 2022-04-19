@@ -4,6 +4,10 @@
 
 ![Screenshot](./screenshot.png)
 
+## Live Version
+
+https://pickone-randomizer.herokuapp.com/
+
 ## Built With
 
 - Ruby on Rails
